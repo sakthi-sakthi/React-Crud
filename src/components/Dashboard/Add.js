@@ -8,7 +8,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
   const [email, setEmail] = useState('');
   const [salary, setSalary] = useState('');
   const [date, setDate] = useState('');
-
+  const [address, setAddress] = useState('');
+  const [mobile, setMobile] = useState('');
   /*validation*/
 
   $(function(){
@@ -40,12 +41,28 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
     }
     });
 
+  function ValidateNo() {
+  var phoneNo = document.getElementById('mobile');
+
+  if (phoneNo.value == "" || phoneNo.value == null) {
+    alert("Please enter your Mobile No.");
+    return false;
+  }
+  if (phoneNo.value.length < 10 || phoneNo.value.length > 10) {
+    alert("Mobile No. is not valid, Please Enter 10 Digit Mobile No.");
+    return false;
+  }
+
+  alert("Success ");
+  return true;
+}
+
   /*validation*/
 
   const handleAdd = e => {
     e.preventDefault();
 
-    if (!name || !designation || !email || !salary || !date) {
+    if (!name || !designation || !email || !salary || !date || !address || !mobile) {
       return Swal.fire({
         icon: 'error',
         title: 'Warning!',
@@ -64,6 +81,8 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
       email,
       salary,
       date,
+      address,
+      mobile,
     };
 
     employees.push(newEmployee);
@@ -143,6 +162,17 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
           autoComplete="off"
         />
 
+         <label htmlFor="mobile">Mobile Number <span class="required" style={{color: "red"}}>*</span></label>
+        <input
+          id="mobile"
+          type="tel"
+          name="mobile"
+          value={mobile}
+          onChange={e => setMobile(e.target.value)}
+          autoComplete="off"
+          onkeypress={()=> 'return isNumber (event)'}
+        />
+
         <label htmlFor="date">Date of Joining <span class="required" style={{color: "red"}}>*</span></label>
         <input
           id="date"
@@ -153,11 +183,21 @@ const Add = ({ employees, setEmployees, setIsAdding }) => {
           autoComplete="off"
         />
 
+        <label htmlFor="address">Address<span class="required" style={{color: "red"}}>*</span></label>
+        <input
+          id="address"
+          type="text"
+          name="address"
+          value={address}
+          onChange={e => setAddress(e.target.value)}
+          autoComplete="off"
+        />
+
         <div style={{ marginTop: '30px' }}>
-          <input type="submit" value="Add" />
+          <input type="submit" value="Add" onClick={()=>ValidateNo()} />
           <input
             style={{ marginLeft: '12px' }}
-            className="muted-button"
+            className="cancel"
             type="button"
             value="Cancel"
             onClick={() => setIsAdding(false)}

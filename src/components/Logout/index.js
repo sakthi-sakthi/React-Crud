@@ -9,7 +9,7 @@ const Logout = ({ setIsAuthenticated }) => {
       text: 'Are you sure you want to log out?',
       showCancelButton: true,
       confirmButtonText: 'Yes',
-      confirmButtonColor: 'red',
+      confirmButtonColor: 'crimson',
     }).then(result => {
       if (result.value) {
         Swal.fire({
@@ -22,6 +22,13 @@ const Logout = ({ setIsAuthenticated }) => {
           willClose: () => {
             localStorage.setItem('is_authenticated', false);
             setIsAuthenticated(false);
+            
+            Swal.fire({
+            icon: 'success',
+            title: 'Successfully logged out!',
+            showConfirmButton: true,
+            confirmButtonColor:'red',
+          });
           },
         });
       }
@@ -30,7 +37,7 @@ const Logout = ({ setIsAuthenticated }) => {
 
   return (
     <button
-      style={{ marginLeft: '12px' }}
+      style={{ marginLeft: '12px',fontSize:"15px",backgroundcolor:"crimson" }}
       className="fa fa-power-off" id="GetFile"
       onClick={handleLogout}
     >

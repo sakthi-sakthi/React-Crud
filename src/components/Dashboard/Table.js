@@ -6,11 +6,7 @@ const Table = ({ employees, handleEdit, handleDelete }) => {
     employee.id = i + 1;
   });
 
-  /*****************************/
-  const isBackgroundRed = true;
-  const isBackgroundBrown = true;
-  /*****************************/
-
+  // sorting //
   $(function () {
   $('table')
     .on('click', 'th', function () {
@@ -46,6 +42,7 @@ const Table = ({ employees, handleEdit, handleDelete }) => {
     });
 });
 
+// search //
   $(document).ready(function(){
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -54,15 +51,16 @@ const Table = ({ employees, handleEdit, handleDelete }) => {
     });
   });
 });
-
   const formatter = new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: 'IND',
     minimumFractionDigits: null,
-  });
+  })
   
   return (
     <div className="contain-table">
+      <div id="DataTable">
+       <div id="table_box_bootstrap"></div>
       <table id="example" class="table table-striped table-bordered">
         <thead>
           <tr>
@@ -70,9 +68,11 @@ const Table = ({ employees, handleEdit, handleDelete }) => {
             <th>Name</th>
             <th>Designation</th>
             <th>Email</th>
-            <th>Salary(₹)</th>
-            <th>Date of Joining</th>
-            <th colSpan={2} className="text-center">
+            <th>Salary (₹)</th>
+            <th>Joining Date</th>
+            <th>Address</th>
+            <th>Mobile</th>
+            <th colSpan={3} className="text-center">
               Actions
             </th>
           </tr>
@@ -81,25 +81,27 @@ const Table = ({ employees, handleEdit, handleDelete }) => {
           {employees.length > 0 ? (
             employees.map((employee, i) => (
               <tr key={employee.id}>
-                <td>{i + 1}</td>
-                <td>{employee.name}</td>
-                <td>{employee.designation}</td>
-                <td>{employee.email}</td>
-                <td>{employee.salary} ₹</td>
-                <td>{employee.date} </td>
+                <td style={{fontFamily:"Times New Roman",fontSize:"18px"}}>{i + 1}</td>
+                <td style={{fontFamily:"Times New Roman",fontSize:"18px"}}>{employee.name}</td>
+                <td style={{fontFamily:"Times New Roman",fontSize:"18px"}}>{employee.designation}</td>
+                <td style={{fontFamily:"Times New Roman",fontSize:"18px"}}>{employee.email}</td>
+                <td style={{fontFamily:"Times New Roman",fontSize:"18px"}}>{employee.salary} ₹</td>
+                <td style={{fontFamily:"Times New Roman",fontSize:"18px"}}>{employee.date} </td>
+                <td style={{fontFamily:"Times New Roman",fontSize:"18px"}}>{employee.address}</td>
+                <td style={{fontFamily:"Times New Roman",fontSize:"18px"}}>{employee.mobile}</td>
                 <td className="text-right">
                   <button
                     onClick={() => handleEdit(employee.id)}
-                    className="fa fa-edit" 
+                    className="fa fa-edit"
+                    id="tooltip"
+                    style={{fontSize:"15px",backgroundColor:"dodgerblue"}} 
                   >
                   </button>
                 </td>
                 <td className="text-left">
                   <button
                     onClick={() => handleDelete(employee.id)}
-                    className="fa fa-trash" style={{
-        backgroundColor: isBackgroundRed ? 'red' : 'blue',marginleft: '100px',
-      }}
+                    className="fa fa-trash" style={{fontSize:"15px",backgroundColor:"crimson"}} 
                   >
                   </button>
                 </td>
@@ -107,11 +109,12 @@ const Table = ({ employees, handleEdit, handleDelete }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={7}><center><b>No Employee Records in The Table</b></center></td>
+              <td colSpan={10}><center><b>No Employee Records in The Table</b></center></td>
             </tr>
           )}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

@@ -30,9 +30,9 @@ const Dashboard = ({ setIsAuthenticated }) => {
     Swal.fire({
       icon: 'warning',
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      text: "You won't be able to revert this Data!",
       showCancelButton: true,
-      confirmButtonColor: 'red',
+      confirmButtonColor: 'crimson',
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, cancel!',
     }).then(result => {

@@ -3,9 +3,9 @@ import Swal from 'sweetalert2';
 import $ from "jquery"
 
 
-const Login = ({ setIsAuthenticated }) => {
-  let Email = 'abc@gmail.com';
-  let Password = 'abcd';
+const Login = ({setIsAuthenticated }) => {
+  const Email = 'abc@gmail.com';
+  const Password = 'abcd';
 
   const [email, setEmail] = useState('abc@gmail.com');
   const [password, setPassword] = useState('abcd');
@@ -44,8 +44,7 @@ const Login = ({ setIsAuthenticated }) => {
           Swal.fire({
             icon: 'success',
             title: 'Successfully logged in!',
-            showConfirmButton: false,
-            timer: 1500,
+            showConfirmButton: true,
           });
         },
       });
@@ -74,8 +73,8 @@ const Login = ({ setIsAuthenticated }) => {
     <div className="small-container">
       <form onSubmit={handleLogin} id={"form"}>
         <h1>Login</h1>
-        <label htmlFor="email">Email  <span class="required" style={{color: "red"}}>*</span></label>
-         <span class="msg error">Invalid email address</span>
+        <label htmlFor="email">Email  <span className="required" style={{color: "red"}}>*</span></label>
+         <span class="msg error">Invalid email address *</span>
           <span class="msg success">Valid email address *</span>
         <input
           id="email"
@@ -84,18 +83,19 @@ const Login = ({ setIsAuthenticated }) => {
           placeholder="Enter Username"
           onChange={e => setEmail(e.target.value)}
           autoComplete="off"
+          required
           
         />
 
-        <label htmlFor="password">Password <span class="required" style={{color: "red"}}>*</span></label>
+        <label htmlFor="password">Password <span className="required" style={{color: "red"}}>*</span></label>
         <input
           id="password"
           type="password"
           name="password"
           placeholder="Enter Password"
           onChange={e => setPassword(e.target.value)}
-          minlength="4"
-          maxlength="12"
+          minLength="4"
+          maxLength="12"
           autoComplete="off"
           required
         />

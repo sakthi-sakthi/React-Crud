@@ -10,6 +10,8 @@ const Edit = ({ employees, selectedEmployee, setEmployees, setIsEditing }) => {
   const [email, setEmail] = useState(selectedEmployee.email);
   const [salary, setSalary] = useState(selectedEmployee.salary);
   const [date, setDate] = useState(selectedEmployee.date);
+  const [address,setAddress] = useState(selectedEmployee.address);
+  const [mobile,setMobile] = useState(selectedEmployee.mobile);
 
      $('form input[name="email"]').blur(function () {
     var email = $(this).val();
@@ -22,6 +24,24 @@ const Edit = ({ employees, selectedEmployee, setEmployees, setIsEditing }) => {
         $('.error').show();
     }
     });
+
+
+  function ValidateNo() {
+  var phoneNo = document.getElementById('mobile');
+
+  if (phoneNo.value == "" || phoneNo.value == null) {
+    alert("Please enter your Mobile No.");
+    return false;
+  }
+  if (phoneNo.value.length < 10 || phoneNo.value.length > 10) {
+    alert("Mobile No. is not valid, Please Enter 10 Digit Mobile No.");
+    return false;
+  }
+
+  alert("Success ");
+  return true;
+}
+
 
 
   $(function(){
@@ -42,7 +62,7 @@ const Edit = ({ employees, selectedEmployee, setEmployees, setIsEditing }) => {
   const handleUpdate = e => {
     e.preventDefault();
 
-    if (!name || !designation || !email || !salary || !date) {
+    if (!name || !designation || !email || !salary || !date || !address || !mobile) {
       return Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -59,6 +79,8 @@ const Edit = ({ employees, selectedEmployee, setEmployees, setIsEditing }) => {
       email,
       salary,
       date,
+      address,
+      mobile,
     };
 
     for (let i = 0; i < employees.length; i++) {
@@ -102,7 +124,6 @@ const Edit = ({ employees, selectedEmployee, setEmployees, setIsEditing }) => {
         />
         <label htmlFor="email">Email <span class="required" style={{color: "red"}}>*</span></label>
         <span class="msg error">Invalid email address *</span>
-        <span class="msg success">Valid email address *</span>
         <input
           id="email"
           type="email"
@@ -126,8 +147,25 @@ const Edit = ({ employees, selectedEmployee, setEmployees, setIsEditing }) => {
           value={date}
           onChange={e => setDate(e.target.value)}
         />
+        <label htmlFor="address">Address<span class="required" style={{color: "red"}}>*</span></label>
+        <input
+          id="address"
+          type="text"
+          name="address"
+          value={address}
+          onChange={e => setAddress(e.target.value)}
+        />
+        <label htmlFor="mobile">Mobile<span class="required" style={{color: "red"}}>*</span></label>
+        <input
+          id="mobile"
+          type="tel"
+          name="mobile"
+          value={mobile}
+          onChange={e => setMobile(e.target.value)}
+          onkeypress={()=> 'return isNumber (event)'}
+        />
         <div style={{ marginTop: '30px' }}>
-          <input type="submit" value="Update" />
+          <input type="submit" value="Update" onClick={()=>ValidateNo()} />
           <input
             style={{ marginLeft: '12px' }}
             className="muted-button"
